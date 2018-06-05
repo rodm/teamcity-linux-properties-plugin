@@ -1,0 +1,47 @@
+
+plugins {
+    id 'com.github.rodm.teamcity-server' version '1.1'
+}
+
+group = 'com.github.rodm'
+version = '1.0-SNAPSHOT'
+
+ext {
+    downloadsDir = project.findProperty('downloads.dir') ?: "$rootDir/downloads"
+    serversDir = project.findProperty('servers.dir') ?: "$rootDir/servers"
+    java8Home = project.findProperty('java8.home') ?: '/opt/jdk1.8.0_152'
+}
+
+dependencies {
+    agent (project(path: ':agent', configuration: 'plugin'))
+}
+
+teamcity {
+    version = '10.0'
+
+    server {
+        archiveName = "linux-properties-${rootProject.version}.zip"
+
+        descriptor {
+            name = 'linux-properties'
+            displayName = 'Linux Properties'
+            version = rootProject.version
+            description = 'Provides additional properties to identify the Linux distribution.'
+            vendorName = 'Rod MacKenzie'
+            vendorUrl = 'https://github.com/rodm'
+            email = 'rod.n.mackenzie@gmail.com'
+            useSeparateClassloader = true
+        }
+    }
+
+    environments {
+        downloadsDir = project.downloadsDir
+        baseHomeDir = project.serversDir
+        baseDataDir = "${rootDir}/data"
+
+        teamcity10 {
+            version = '10.0.5'
+            javaHome = file(java8Home)
+        }
+    }
+}
