@@ -43,6 +43,7 @@ public class LinuxProperties extends AgentLifeCycleAdapter {
 
     private static final String OS_NAME = "linux.os.name";
     private static final String OS_VERSION = "linux.os.version";
+    private static final String OS_DESCRIPTION = "linux.os.description";
 
     private static final String OS_RELEASE = "/etc/os-release";
     private static final String CENTOS_RELEASE = "/etc/centos-release";
@@ -84,6 +85,13 @@ public class LinuxProperties extends AgentLifeCycleAdapter {
                 configuration.addConfigurationParameter(OS_NAME, name);
                 configuration.addConfigurationParameter(OS_VERSION, version);
             }
+            String description = contents.get(0);
+            if (new File(OS_RELEASE).exists()) {
+                Properties props = new Properties();
+                props.load(new FileReader(OS_RELEASE));
+                description = props.getProperty("PRETTY_NAME");
+            }
+            configuration.addConfigurationParameter(OS_DESCRIPTION, description);
         }
         catch (IOException e) {
             LOG.warn("Exception reading " + releaseName + " file: " + e.getMessage());
@@ -99,8 +107,10 @@ public class LinuxProperties extends AgentLifeCycleAdapter {
             if (version == null) {
                 version = props.getProperty("VERSION_ID");
             }
+            String description = props.getProperty("PRETTY_NAME");
             configuration.addConfigurationParameter(OS_NAME, name.replace("\"", ""));
             configuration.addConfigurationParameter(OS_VERSION, version.replace("\"", ""));
+            configuration.addConfigurationParameter(OS_DESCRIPTION, description.replace("\"", ""));
         }
         catch (IOException e) {
             LOG.warn("Exception reading " + OS_RELEASE + " file: " + e.getMessage());
