@@ -1,0 +1,70 @@
+= TeamCity Linux Properties
+:uri-teamcity: https://www.jetbrains.com/teamcity/[TeamCity]
+:uri-teamcity-install-plugin: https://confluence.jetbrains.com/display/TCD10/Installing+Additional+Plugins[Installing Additional Plugins]
+:uri-gradle: https://gradle.org/[Gradle]
+:uri-download: https://bintray.com/rodm/teamcity-plugins-generic/linux-properties
+:uri-bintray-plugin: https://bintray.com/rodm/teamcity-plugins-generic/linux-properties/_latestVersion
+:uri-bintray-image: https://api.bintray.com/packages/rodm/teamcity-plugins-generic/linux-properties/images/download.svg
+:uri-travis-build: https://travis-ci.org/rodm/teamcity-linux-properties-plugin
+:uri-travis-image: https://travis-ci.org/rodm/teamcity-linux-properties-plugin.svg
+
+Linux Properties is a {uri-teamcity} plugin that provides additional configuration parameters to identify
+a Linux distribution.
+
+image:{uri-travis-image}[Build Status,link={uri-travis-build}]
+image:{uri-bintray-image}[Download,link={uri-bintray-plugin}]
+
+== Installation
+
+* Download the plugin file from {uri-download} (see _Downloads_ section at the bottom of the page).
+
+* Go to the Plugins List page of your TeamCity installation and
+click on the link _Upload plugin zip_ to install the downloaded plugin file.
+
+* Restart TeamCity.
+
+== Using the plugin
+
+The plugin provides the following additional build agent configuration parameters that can be used when defining
+Agent Requirements. The parameters are populated using the values taken from the `/etc/os-release` file.
+
+* linux.os.name - The name of the Linux distribution taken from the NAME variable
+* linux.os.version - The version of the Linux distribution taken from the `VERSION` or `VERSION_ID` variable
+* linux.os.description - The full name of the Linux distribution taken from the `PRETTY_NAME` variable
+
+For CentOS and RedHat Linux the values are extracted fro the `/etc/centos-release` and `/etc/redhat-release` files.
+
+== How to build the plugin
+
+The build uses {uri-gradle}, the following tasks can be used to build the plugin and deploy it to a
+local TeamCity Server for testing.
+
+Build the plugin
+
+    ./gradlew build
+
+The plugin is packaged into a zip file and found in the following directory `build/distributions/`
+
+Start the TeamCity Server
+
+    ./gradlew startTeamcity10Server
+
+Start the Build Agent
+
+    ./gradlew startTeamcity10Agent
+
+Stop the TeamCity Server
+
+    ./gradlew stopTeamcity10Server
+
+Stop the Build Agent
+
+    ./gradlew stopTeamcity10Agent
+
+== Compatibility
+
+The plugin is compatible with TeamCity 10.0 and later.
+
+== License
+
+This plugin is available under the http://www.apache.org/licenses/LICENSE-2.0.html[Apache License, Version 2.0].
