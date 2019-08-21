@@ -97,14 +97,6 @@ project {
             param("gradle.opts", "%sonar.opts%")
             param("gradle.tasks", "clean build sonarqube")
         }
-
-        features {
-            feature {
-                id = "gradle-init-scripts"
-                type = "gradle-init-scripts"
-                param("initScriptName", "sonarqube.gradle")
-            }
-        }
     }
 
     buildTypesOrder = arrayListOf(build1, build2, build3, reportCodeQuality)
