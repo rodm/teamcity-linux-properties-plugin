@@ -1,15 +1,13 @@
 
-apply plugin: 'org.gradle.java'
-apply plugin: 'com.github.rodm.teamcity-agent'
+plugins {
+    id 'org.gradle.java'
+    id 'com.github.rodm.teamcity-agent'
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 archivesBaseName = 'linux-properties-agent'
-
-configurations {
-    all*.exclude module: 'xom'
-}
 
 teamcity {
     agent {
