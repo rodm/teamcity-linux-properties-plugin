@@ -62,13 +62,33 @@ project {
         }
     }
 
-    buildType {
+    val build1 = buildType {
         id("BuildTeamCity100")
         templates(buildTemplate)
-        name = "Build - TeamCity 10.0"
+        name = "Build - TeamCity 2018.1"
     }
 
-    buildType {
+    val build2 = buildType {
+        id("Build2")
+        templates(buildTemplate)
+        name = "Build - TeamCity 2018.2"
+
+        params {
+            param("gradle.opts", "-Pteamcity.version=2018.2")
+        }
+    }
+
+    val build3 = buildType {
+        id("Build3")
+        templates(buildTemplate)
+        name = "Build - TeamCity 2019.1"
+
+        params {
+            param("gradle.opts", "-Pteamcity.version=2019.1")
+        }
+    }
+
+    val reportCodeQuality = buildType {
         id("ReportCodeQuality")
         templates(buildTemplate)
         name = "Report - Code Quality"
@@ -86,4 +106,6 @@ project {
             }
         }
     }
+
+    buildTypesOrder = arrayListOf(build1, build2, build3, reportCodeQuality)
 }

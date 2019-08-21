@@ -8,6 +8,8 @@ group = 'com.github.rodm'
 version = '1.0'
 
 ext {
+    teamcityVersion = project.findProperty('teamcity.version') ?: '2018.1'
+
     downloadsDir = project.findProperty('downloads.dir') ?: "$rootDir/downloads"
     serversDir = project.findProperty('servers.dir') ?: "$rootDir/servers"
     java8Home = project.findProperty('java8.home') ?: '/opt/jdk1.8.0_152'
@@ -18,7 +20,7 @@ dependencies {
 }
 
 teamcity {
-    version = '10.0'
+    version = "${teamcityVersion}"
 
     server {
         archiveName = "linux-properties-${rootProject.version}.zip"
@@ -40,8 +42,8 @@ teamcity {
         baseHomeDir = project.serversDir
         baseDataDir = "${rootDir}/data"
 
-        teamcity10 {
-            version = '10.0.5'
+        'teamcity2018.1' {
+            version = '2018.1.4'
             javaHome = file(java8Home)
         }
     }
