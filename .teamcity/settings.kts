@@ -74,7 +74,7 @@ project {
         name = "Build - TeamCity 2018.2"
 
         params {
-            param("gradle.opts", "-Pteamcity.version=2018.2")
+            param("gradle.opts", "-Pteamcity.api.version=2018.2")
         }
     }
 
@@ -84,7 +84,7 @@ project {
         name = "Build - TeamCity 2019.1"
 
         params {
-            param("gradle.opts", "-Pteamcity.version=2019.1")
+            param("gradle.opts", "-Pteamcity.api.version=2019.1")
         }
     }
 
