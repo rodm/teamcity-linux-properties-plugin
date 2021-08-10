@@ -1,0 +1,26 @@
+
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - '.teamcity/**'
+      - 'README.adoc'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: 1.8
+      - name: Build with Gradle
+        run: |
+          ./gradlew -v
+          ./gradlew -s build
+          ./gradlew --stop

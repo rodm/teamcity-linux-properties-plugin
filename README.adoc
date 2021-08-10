@@ -1,17 +1,19 @@
-= TeamCity Linux Properties
 :uri-teamcity: https://www.jetbrains.com/teamcity/[TeamCity]
 :uri-teamcity-install-plugin: https://confluence.jetbrains.com/display/TCD10/Installing+Additional+Plugins[Installing Additional Plugins]
 :uri-gradle: https://gradle.org/[Gradle]
-:uri-download: https://github.com/rodm/teamcity-linux-properties-plugin/releases/latest
+:uri-project: https://github.com/rodm/teamcity-linux-properties-plugin/
+:uri-download: {uri-project}/releases/latest
 :uri-version: https://img.shields.io/github/v/release/rodm/teamcity-linux-properties-plugin?label=TeamCity%20plugin
 :uri-downloads: https://img.shields.io/github/downloads/rodm/teamcity-linux-properties-plugin/total?label=Downloads
-:uri-travis-build: https://travis-ci.org/rodm/teamcity-linux-properties-plugin
-:uri-travis-image: https://travis-ci.org/rodm/teamcity-linux-properties-plugin.svg
+:uri-build-history: {uri-project}/actions
+:uri-build-status: {uri-project}/workflows/Build/badge.svg
+
+= TeamCity Linux Properties
 
 Linux Properties is a {uri-teamcity} plugin that provides additional configuration parameters to identify
 a Linux distribution.
 
-image:{uri-travis-image}[Build Status,link={uri-travis-build}]
+image:{uri-build-status}?branch=master["Build Status", link="{uri-build-history}"]
 image:{uri-version}[Download,link={uri-download}]
 image:{uri-downloads}["Downloads", link="{uri-download}"]
 

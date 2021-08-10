@@ -52,6 +52,10 @@ project {
             vcs {
                 id = "vcsTrigger"
                 branchFilter = ""
+                triggerRules = """
+                    -:.github/**
+                    -:README.adoc
+                """.trimIndent()
             }
         }
 
