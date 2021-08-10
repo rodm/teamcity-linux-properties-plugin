@@ -1,10 +1,12 @@
+:plugin-id: teamcity-linux-properties-plugin
+:plugin-name: {plugin-id}
 :uri-teamcity: https://www.jetbrains.com/teamcity/[TeamCity]
-:uri-teamcity-install-plugin: https://confluence.jetbrains.com/display/TCD10/Installing+Additional+Plugins[Installing Additional Plugins]
 :uri-gradle: https://gradle.org/[Gradle]
-:uri-project: https://github.com/rodm/teamcity-linux-properties-plugin/
+:uri-project: https://github.com/rodm/{plugin-name}
 :uri-download: {uri-project}/releases/latest
-:uri-version: https://img.shields.io/github/v/release/rodm/teamcity-linux-properties-plugin?label=TeamCity%20plugin
-:uri-downloads: https://img.shields.io/github/downloads/rodm/teamcity-linux-properties-plugin/total?label=Downloads
+:uri-shields: https://img.shields.io/github
+:uri-version: {uri-shields}/v/release/rodm/{plugin-name}?label=TeamCity%20plugin
+:uri-downloads: {uri-shields}/downloads/rodm/{plugin-name}/total?label=Downloads
 :uri-build-history: {uri-project}/actions
 :uri-build-status: {uri-project}/workflows/Build/badge.svg
 
@@ -14,7 +16,7 @@ Linux Properties is a {uri-teamcity} plugin that provides additional configurati
 a Linux distribution.
 
 image:{uri-build-status}?branch=master["Build Status", link="{uri-build-history}"]
-image:{uri-version}[Download,link={uri-download}]
+image:{uri-version}[Download, link={uri-download}]
 image:{uri-downloads}["Downloads", link="{uri-download}"]
 
 == Installation
@@ -50,23 +52,23 @@ The plugin is packaged into a zip file and found in the following directory `bui
 
 Start the TeamCity Server
 
-    ./gradlew startTeamcity10Server
+    ./gradlew startTeamcity2018.1Server
 
 Start the Build Agent
 
-    ./gradlew startTeamcity10Agent
+    ./gradlew startTeamcity2018.1Agent
 
 Stop the TeamCity Server
 
-    ./gradlew stopTeamcity10Server
+    ./gradlew stopTeamcity2018.1Server
 
 Stop the Build Agent
 
-    ./gradlew stopTeamcity10Agent
+    ./gradlew stopTeamcity2018.1Agent
 
 == Compatibility
 
-The plugin is compatible with TeamCity 10.0 and later.
+The plugin is compatible with TeamCity 2018.1 and later.
 
 == License
 
