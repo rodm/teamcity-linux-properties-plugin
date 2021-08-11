@@ -25,9 +25,10 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
@@ -87,8 +88,7 @@ public class LinuxProperties extends AgentLifeCycleAdapter {
             }
             String description = contents.get(0);
             if (new File(OS_RELEASE).exists()) {
-                Properties props = new Properties();
-                props.load(new FileReader(OS_RELEASE));
+                Properties props = loadReleaseProperties(Paths.get(OS_RELEASE));
                 description = props.getProperty("PRETTY_NAME");
             }
             configuration.addConfigurationParameter(OS_DESCRIPTION, description);
@@ -100,8 +100,7 @@ public class LinuxProperties extends AgentLifeCycleAdapter {
     
     private void configureUsingOsReleaseFile(BuildAgentConfiguration configuration) {
         try {
-            Properties props = new Properties();
-            props.load(new FileReader(OS_RELEASE));
+            Properties props = loadReleaseProperties(Paths.get(OS_RELEASE));
             String name = props.getProperty("NAME");
             String version = props.getProperty("VERSION");
             if (version == null) {
@@ -114,6 +113,14 @@ public class LinuxProperties extends AgentLifeCycleAdapter {
         }
         catch (IOException e) {
             LOG.warn("Exception reading " + OS_RELEASE + " file: " + e.getMessage());
+        }
+    }
+
+    private Properties loadReleaseProperties(Path path) throws IOException {
+        try (Reader reader = Files.newBufferedReader(path)) {
+            Properties props = new Properties();
+            props.load(reader);
+            return props;
         }
     }
 }
