@@ -24,7 +24,6 @@ import jetbrains.buildServer.util.EventDispatcher;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -36,19 +35,20 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.nio.file.Files.exists;
 import static jetbrains.buildServer.log.Loggers.AGENT_CATEGORY;
 
 public class LinuxProperties extends AgentLifeCycleAdapter {
 
-    private static Logger LOG = Logger.getLogger(AGENT_CATEGORY + ".LinuxProperties");
+    private static final Logger LOG = Logger.getLogger(AGENT_CATEGORY + ".LinuxProperties");
 
     private static final String OS_NAME = "linux.os.name";
     private static final String OS_VERSION = "linux.os.version";
     private static final String OS_DESCRIPTION = "linux.os.description";
 
-    private static final String OS_RELEASE = "/etc/os-release";
-    private static final String CENTOS_RELEASE = "/etc/centos-release";
-    private static final String REDHAT_RELEASE = "/etc/redhat-release";
+    private static final Path OS_RELEASE = Paths.get("/etc/os-release");
+    private static final Path CENTOS_RELEASE = Paths.get("/etc/centos-release");
+    private static final Path REDHAT_RELEASE = Paths.get("/etc/redhat-release");
 
     public LinuxProperties(EventDispatcher<AgentLifeCycleListener> eventDispatcher) {
         eventDispatcher.addListener(this);
@@ -60,13 +60,13 @@ public class LinuxProperties extends AgentLifeCycleAdapter {
         Map<String, String> parameters = configuration.getConfigurationParameters();
         if ("Linux".equalsIgnoreCase(parameters.get("teamcity.agent.jvm.os.name"))) {
 
-            if (new File(CENTOS_RELEASE).exists()) {
+            if (exists(CENTOS_RELEASE)) {
                 configureUsingReleaseFile(configuration, CENTOS_RELEASE);
             }
-            else if (new File(OS_RELEASE).exists()) {
+            else if (exists(OS_RELEASE)) {
                 configureUsingOsReleaseFile(configuration);
             }
-            else if (new File(REDHAT_RELEASE).exists()) {
+            else if (exists(REDHAT_RELEASE)) {
                 configureUsingReleaseFile(configuration, REDHAT_RELEASE);
             }
             else {
@@ -75,9 +75,9 @@ public class LinuxProperties extends AgentLifeCycleAdapter {
         }
     }
 
-    private void configureUsingReleaseFile(BuildAgentConfiguration configuration, String releaseName) {
+    private void configureUsingReleaseFile(BuildAgentConfiguration configuration, Path releasePath) {
         try {
-            List<String> contents = Files.readAllLines(Paths.get(releaseName));
+            List<String> contents = Files.readAllLines(releasePath);
             Pattern pattern = Pattern.compile("^(.+)(\\srelease\\s)(\\d+(\\.\\d+)+)(.+)$", Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(contents.get(0));
             if (matcher.find()) {
@@ -87,20 +87,20 @@ public class LinuxProperties extends AgentLifeCycleAdapter {
                 configuration.addConfigurationParameter(OS_VERSION, version);
             }
             String description = contents.get(0);
-            if (new File(OS_RELEASE).exists()) {
-                Properties props = loadReleaseProperties(Paths.get(OS_RELEASE));
+            if (exists(OS_RELEASE)) {
+                Properties props = loadReleaseProperties();
                 description = props.getProperty("PRETTY_NAME");
             }
             configuration.addConfigurationParameter(OS_DESCRIPTION, description);
         }
         catch (IOException e) {
-            LOG.warn("Exception reading " + releaseName + " file: " + e.getMessage());
+            LOG.warn("Exception reading " + releasePath + " file: " + e.getMessage());
         }
     }
     
     private void configureUsingOsReleaseFile(BuildAgentConfiguration configuration) {
         try {
-            Properties props = loadReleaseProperties(Paths.get(OS_RELEASE));
+            Properties props = loadReleaseProperties();
             String name = props.getProperty("NAME");
             String version = props.getProperty("VERSION");
             if (version == null) {
@@ -116,8 +116,8 @@ public class LinuxProperties extends AgentLifeCycleAdapter {
         }
     }
 
-    private Properties loadReleaseProperties(Path path) throws IOException {
-        try (Reader reader = Files.newBufferedReader(path)) {
+    private Properties loadReleaseProperties() throws IOException {
+        try (Reader reader = Files.newBufferedReader(OS_RELEASE)) {
             Properties props = new Properties();
             props.load(reader);
             return props;
