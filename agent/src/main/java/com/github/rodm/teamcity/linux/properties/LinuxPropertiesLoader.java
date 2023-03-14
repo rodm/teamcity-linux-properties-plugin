@@ -31,16 +31,25 @@ import java.util.regex.Pattern;
 import static com.github.rodm.teamcity.linux.properties.LinuxProperties.OS_DESCRIPTION;
 import static com.github.rodm.teamcity.linux.properties.LinuxProperties.OS_NAME;
 import static com.github.rodm.teamcity.linux.properties.LinuxProperties.OS_VERSION;
-import static java.nio.file.Files.exists;
 import static jetbrains.buildServer.log.Loggers.AGENT_CATEGORY;
 
 public class LinuxPropertiesLoader {
 
     private static final Logger LOG = Logger.getLogger(AGENT_CATEGORY + ".LinuxProperties");
 
-    private static final Path OS_RELEASE = Paths.get("/etc/os-release");
-    private static final Path CENTOS_RELEASE = Paths.get("/etc/centos-release");
-    private static final Path REDHAT_RELEASE = Paths.get("/etc/redhat-release");
+    private static final Path OS_RELEASE = Paths.get("etc/os-release");
+    private static final Path CENTOS_RELEASE = Paths.get("etc/centos-release");
+    private static final Path REDHAT_RELEASE = Paths.get("etc/redhat-release");
+
+    private final Path root;
+
+    public LinuxPropertiesLoader() {
+        this(Paths.get("/"));
+    }
+
+    LinuxPropertiesLoader(Path root) {
+        this.root = root;
+    }
 
     public Properties loadProperties() {
         Properties properties = new Properties();
@@ -59,9 +68,13 @@ public class LinuxPropertiesLoader {
         return properties;
     }
 
+    private boolean exists(Path path) {
+        return Files.exists(root.resolve(path));
+    }
+
     private void loadReleaseFile(Path releasePath, Properties properties) {
         try {
-            List<String> contents = Files.readAllLines(releasePath);
+            List<String> contents = Files.readAllLines(root.resolve(releasePath));
             Pattern pattern = Pattern.compile("^(.+)(\\srelease\\s)(\\d+(\\.\\d+)+)(.+)$", Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(contents.get(0));
             if (matcher.find()) {
@@ -101,7 +114,7 @@ public class LinuxPropertiesLoader {
     }
 
     private Properties loadReleaseProperties() throws IOException {
-        try (Reader reader = Files.newBufferedReader(OS_RELEASE)) {
+        try (Reader reader = Files.newBufferedReader(root.resolve(OS_RELEASE))) {
             Properties props = new Properties();
             props.load(reader);
             return props;

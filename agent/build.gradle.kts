@@ -13,6 +13,11 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+dependencies {
+    testImplementation ("org.junit.jupiter:junit-jupiter:5.9.2")
+    testImplementation("org.testcontainers:junit-jupiter:1.17.6")
+}
+
 teamcity {
     agent {
         descriptor {
@@ -20,5 +25,11 @@ teamcity {
                 useSeparateClassloader = true
             }
         }
+    }
+}
+
+tasks {
+    test {
+        useJUnitPlatform()
     }
 }
