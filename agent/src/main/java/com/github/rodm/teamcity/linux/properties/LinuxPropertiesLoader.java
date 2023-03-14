@@ -35,7 +35,7 @@ import static jetbrains.buildServer.log.Loggers.AGENT_CATEGORY;
 
 public class LinuxPropertiesLoader {
 
-    private static final Logger LOG = Logger.getLogger(AGENT_CATEGORY + ".LinuxProperties");
+    private static final Logger LOG = Logger.getLogger(AGENT_CATEGORY);
 
     private static final Path OS_RELEASE = Paths.get("etc/os-release");
     private static final Path CENTOS_RELEASE = Paths.get("etc/centos-release");
@@ -73,6 +73,7 @@ public class LinuxPropertiesLoader {
     }
 
     private void loadReleaseFile(Path releasePath, Properties properties) {
+        LOG.info("Loading Linux properties from " + root.resolve(releasePath));
         try {
             List<String> contents = Files.readAllLines(root.resolve(releasePath));
             Pattern pattern = Pattern.compile("^(.+)(\\srelease\\s)(\\d+(\\.\\d+)+)(.+)$", Pattern.CASE_INSENSITIVE);
@@ -96,6 +97,7 @@ public class LinuxPropertiesLoader {
     }
 
     private void loadOsReleaseFile(Properties properties) {
+        LOG.info("Loading Linux properties from " + root.resolve(OS_RELEASE));
         try {
             Properties props = loadReleaseProperties();
             String name = props.getProperty("NAME");
