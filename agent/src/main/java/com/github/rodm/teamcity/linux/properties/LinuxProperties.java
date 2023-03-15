@@ -32,6 +32,8 @@ public class LinuxProperties extends AgentLifeCycleAdapter {
     static final String OS_VERSION = "linux.os.version";
     static final String OS_DESCRIPTION = "linux.os.description";
 
+    private static final String AGENT_JVM_OS_NAME = "teamcity.agent.jvm.os.name";
+
     private final LinuxPropertiesLoader loader;
 
     public LinuxProperties(EventDispatcher<AgentLifeCycleListener> eventDispatcher, LinuxPropertiesLoader loader) {
@@ -42,11 +44,15 @@ public class LinuxProperties extends AgentLifeCycleAdapter {
     @Override
     public void beforeAgentConfigurationLoaded(@NotNull BuildAgent agent) {
         BuildAgentConfiguration configuration = agent.getConfiguration();
-        Map<String, String> parameters = configuration.getConfigurationParameters();
-        if ("Linux".equalsIgnoreCase(parameters.get("teamcity.agent.jvm.os.name"))) {
+        if (isLinux(configuration)) {
             Properties properties = loader.loadProperties();
             configureProperties(configuration, properties);
         }
+    }
+
+    private static boolean isLinux(BuildAgentConfiguration configuration) {
+        Map<String, String> parameters = configuration.getConfigurationParameters();
+        return "Linux".equalsIgnoreCase(parameters.get(AGENT_JVM_OS_NAME));
     }
 
     private static void configureProperties(BuildAgentConfiguration configuration, Properties properties) {

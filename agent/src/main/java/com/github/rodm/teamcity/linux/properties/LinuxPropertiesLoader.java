@@ -42,6 +42,8 @@ public class LinuxPropertiesLoader {
     private static final Path CENTOS_RELEASE = Paths.get("etc/centos-release");
     private static final Path REDHAT_RELEASE = Paths.get("etc/redhat-release");
 
+    private static final Pattern RELEASE_PATTERN = Pattern.compile("^(.+)(\\srelease\\s)(\\d+(\\.\\d+)+)(.+)$", Pattern.CASE_INSENSITIVE);
+
     private final Path root;
 
     public LinuxPropertiesLoader() {
@@ -77,18 +79,19 @@ public class LinuxPropertiesLoader {
         LOG.info("Loading Linux properties from " + root.resolve(releasePath));
         try {
             List<String> contents = Files.readAllLines(root.resolve(releasePath));
-            Pattern pattern = Pattern.compile("^(.+)(\\srelease\\s)(\\d+(\\.\\d+)+)(.+)$", Pattern.CASE_INSENSITIVE);
-            Matcher matcher = pattern.matcher(contents.get(0));
+            Matcher matcher = RELEASE_PATTERN.matcher(contents.get(0));
             if (matcher.find()) {
                 String name = matcher.group(1);
                 String version = matcher.group(3);
                 properties.setProperty(OS_NAME, sanitize(name));
                 properties.setProperty(OS_VERSION, sanitize(version));
             }
-            String description = contents.get(0);
+            String description;
             if (exists(OS_RELEASE)) {
                 Properties props = loadReleaseProperties();
                 description = props.getProperty("PRETTY_NAME");
+            } else {
+                description = contents.get(0);
             }
             properties.setProperty(OS_DESCRIPTION, sanitize(description));
         }
@@ -102,10 +105,7 @@ public class LinuxPropertiesLoader {
         try {
             Properties props = loadReleaseProperties();
             String name = props.getProperty("NAME");
-            String version = props.getProperty("VERSION");
-            if (version == null) {
-                version = props.getProperty("VERSION_ID");
-            }
+            String version = props.getProperty("VERSION", props.getProperty("VERSION_ID"));
             String description = props.getProperty("PRETTY_NAME");
             properties.setProperty(OS_NAME, sanitize(name));
             properties.setProperty(OS_VERSION, sanitize(version));
