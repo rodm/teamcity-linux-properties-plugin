@@ -1,4 +1,6 @@
 
+import com.github.rodm.teamcity.DockerTeamCityEnvironment
+
 plugins {
     id ("io.github.rodm.teamcity-server") version "1.5"
     id ("io.github.rodm.teamcity-environments") version "1.5"
@@ -43,6 +45,11 @@ teamcity {
         register("teamcity2018.1") {
             version = "2018.1.4"
             javaHome = extra["java8Home"] as String
+        }
+
+        register("teamcity2022.10", DockerTeamCityEnvironment::class.java) {
+            version = "2022.10.2"
+            port = "7111"
         }
     }
 }
