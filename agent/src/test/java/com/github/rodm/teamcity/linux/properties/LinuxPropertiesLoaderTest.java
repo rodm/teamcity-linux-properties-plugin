@@ -55,8 +55,8 @@ public class LinuxPropertiesLoaderTest {
     //      image               name            version                         description
             "alpine:3.17.2,     Alpine Linux,   3.17.2,                         Alpine Linux v3.17",
             "centos:6.10,       CentOS,         6.10,                           CentOS release 6.10 (Final)",
-            "centos:7.9.2009,   CentOS Linux,   7.9.2009,                       \"CentOS Linux 7 (Core)\"",
-            "centos:8.4.2105,   CentOS Linux,   8.4.210,                        \"CentOS Linux 8\"",
+            "centos:7.9.2009,   CentOS Linux,   7.9.2009,                       CentOS Linux 7 (Core)",
+            "centos:8.4.2105,   CentOS Linux,   8.4.210,                        CentOS Linux 8",
             "opensuse/leap:15.4,openSUSE Leap,  15.4,                           openSUSE Leap 15.4",
             "ubuntu:18.04,      Ubuntu,         18.04.6 LTS (Bionic Beaver),    Ubuntu 18.04.6 LTS",
             "ubuntu:20.04,      Ubuntu,         20.04.1 LTS (Focal Fossa),      Ubuntu 20.04.1 LTS"

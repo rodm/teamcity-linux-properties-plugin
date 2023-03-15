@@ -17,6 +17,7 @@
 package com.github.rodm.teamcity.linux.properties;
 
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -81,15 +82,15 @@ public class LinuxPropertiesLoader {
             if (matcher.find()) {
                 String name = matcher.group(1);
                 String version = matcher.group(3);
-                properties.setProperty(OS_NAME, name);
-                properties.setProperty(OS_VERSION, version);
+                properties.setProperty(OS_NAME, sanitize(name));
+                properties.setProperty(OS_VERSION, sanitize(version));
             }
             String description = contents.get(0);
             if (exists(OS_RELEASE)) {
                 Properties props = loadReleaseProperties();
                 description = props.getProperty("PRETTY_NAME");
             }
-            properties.setProperty(OS_DESCRIPTION, description);
+            properties.setProperty(OS_DESCRIPTION, sanitize(description));
         }
         catch (IOException e) {
             LOG.warn("Exception reading " + releasePath + " file: " + e.getMessage());
@@ -106,9 +107,9 @@ public class LinuxPropertiesLoader {
                 version = props.getProperty("VERSION_ID");
             }
             String description = props.getProperty("PRETTY_NAME");
-            properties.setProperty(OS_NAME, name.replace("\"", ""));
-            properties.setProperty(OS_VERSION, version.replace("\"", ""));
-            properties.setProperty(OS_DESCRIPTION, description.replace("\"", ""));
+            properties.setProperty(OS_NAME, sanitize(name));
+            properties.setProperty(OS_VERSION, sanitize(version));
+            properties.setProperty(OS_DESCRIPTION, sanitize(description));
         }
         catch (IOException e) {
             LOG.warn("Exception reading " + OS_RELEASE + " file: " + e.getMessage());
@@ -121,5 +122,10 @@ public class LinuxPropertiesLoader {
             props.load(reader);
             return props;
         }
+    }
+
+    @NotNull
+    private static String sanitize(String value) {
+        return value.replace("\"", "");
     }
 }
