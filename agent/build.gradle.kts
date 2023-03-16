@@ -1,6 +1,7 @@
 
 plugins {
     id ("org.gradle.java")
+    id ("org.gradle.jacoco")
     id ("io.github.rodm.teamcity-agent")
 }
 
@@ -32,6 +33,13 @@ teamcity {
 tasks {
     test {
         useJUnitPlatform()
+        finalizedBy (jacocoTestReport)
         environment("TESTCONTAINERS_RYUK_DISABLED", "true")
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.required.set(true)
+        }
     }
 }
