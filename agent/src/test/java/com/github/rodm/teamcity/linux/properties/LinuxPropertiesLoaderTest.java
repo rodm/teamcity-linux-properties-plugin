@@ -46,7 +46,8 @@ public class LinuxPropertiesLoaderTest {
     private LinuxContainer container;
 
     @AfterEach
-    void clean() {
+    void clean() throws IOException, InterruptedException {
+        container.execInContainer("rm", "-rf", "/mnt/etc");
         container.stop();
     }
 
@@ -59,13 +60,12 @@ public class LinuxPropertiesLoaderTest {
             "centos:8.4.2105,   CentOS Linux,   8.4.210,                        CentOS Linux 8",
             "opensuse/leap:15.4,openSUSE Leap,  15.4,                           openSUSE Leap 15.4",
             "ubuntu:18.04,      Ubuntu,         18.04.6 LTS (Bionic Beaver),    Ubuntu 18.04.6 LTS",
-            "ubuntu:20.04,      Ubuntu,         20.04.1 LTS (Focal Fossa),      Ubuntu 20.04.1 LTS"
+            "ubuntu:20.04,      Ubuntu,         20.04.5 LTS (Focal Fossa),      Ubuntu 20.04.5 LTS"
     })
     void loadPropertiesFor(String image, String name, String version, String description) throws IOException, InterruptedException {
         container = new LinuxContainer(DockerImageName.parse(image))
                 .withCommand("sleep 10")
-                .withFileSystemBind(dir.toString(), "/mnt", READ_WRITE)
-        ;
+                .withFileSystemBind(dir.toString(), "/mnt", READ_WRITE);
         container.start();
         assertThat(container.isRunning()).isTrue();
 
