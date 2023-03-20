@@ -42,7 +42,7 @@ public class LinuxPropertiesLoader {
     private static final Path CENTOS_RELEASE = Paths.get("etc/centos-release");
     private static final Path REDHAT_RELEASE = Paths.get("etc/redhat-release");
 
-    private static final Pattern RELEASE_PATTERN = Pattern.compile("^(.+)(\\srelease\\s)(\\d+(\\.\\d+)+)(.+)$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern RELEASE_PATTERN = Pattern.compile("^(.+)\\srelease\\s((\\d+)(\\.\\d+){1,2}+)(.*)$", Pattern.CASE_INSENSITIVE);
 
     private final Path root;
 
@@ -82,7 +82,7 @@ public class LinuxPropertiesLoader {
             Matcher matcher = RELEASE_PATTERN.matcher(contents.get(0));
             if (matcher.find()) {
                 String name = matcher.group(1);
-                String version = matcher.group(3);
+                String version = matcher.group(2);
                 properties.setProperty(OS_NAME, sanitize(name));
                 properties.setProperty(OS_VERSION, sanitize(version));
             }
