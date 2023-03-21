@@ -1,19 +1,21 @@
+:uri-teamcity: https://www.jetbrains.com/teamcity/[TeamCity]
+:uri-apache-license: http://www.apache.org/licenses/LICENSE-2.0.html[Apache License, Version 2.0]
+:uri-gradle: https://gradle.org/[Gradle]
+:uri-github: https://github.com
+:uri-shields: https://img.shields.io
 :plugin-id: teamcity-linux-properties-plugin
 :plugin-name: {plugin-id}
-:uri-teamcity: https://www.jetbrains.com/teamcity/[TeamCity]
-:uri-gradle: https://gradle.org/[Gradle]
-:uri-project: https://github.com/rodm/{plugin-name}
+:uri-project: {uri-github}/rodm/{plugin-name}
 :uri-download: {uri-project}/releases/latest
-:uri-shields: https://img.shields.io/github
-:uri-version: {uri-shields}/v/release/rodm/{plugin-name}?label=TeamCity%20plugin
-:uri-downloads: {uri-shields}/downloads/rodm/{plugin-name}/total?label=Downloads
+:uri-version: {uri-shields}/github/v/release/rodm/{plugin-name}?label=TeamCity%20plugin
+:uri-downloads: {uri-shields}/github/downloads/rodm/{plugin-name}/total?label=Downloads
 :uri-build-history: {uri-project}/actions
 :uri-build-status: {uri-project}/workflows/Build/badge.svg
 
 = TeamCity Linux Properties
 
 Linux Properties is a {uri-teamcity} plugin that provides additional configuration parameters to identify
-a Linux distribution.
+a Linux distribution that a build agent is running on.
 
 image:{uri-build-status}?branch=master["Build Status", link="{uri-build-history}"]
 image:{uri-version}[Download, link={uri-download}]
@@ -37,7 +39,7 @@ Agent Requirements. The parameters are populated using the values taken from the
 * linux.os.version - The version of the Linux distribution taken from the `VERSION` or `VERSION_ID` variable
 * linux.os.description - The full name of the Linux distribution taken from the `PRETTY_NAME` variable
 
-For CentOS and RedHat Linux the values are extracted fro the `/etc/centos-release` and `/etc/redhat-release` files.
+For CentOS and RedHat Linux the values are extracted from the `/etc/centos-release` and `/etc/redhat-release` files.
 
 == How to build the plugin
 
@@ -72,4 +74,4 @@ The plugin is compatible with TeamCity 2018.1 and later.
 
 == License
 
-This plugin is available under the http://www.apache.org/licenses/LICENSE-2.0.html[Apache License, Version 2.0].
+This plugin is available under the {uri-apache-license}.
