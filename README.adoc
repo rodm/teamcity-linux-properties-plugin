@@ -17,7 +17,7 @@
 Linux Properties is a {uri-teamcity} plugin that provides additional configuration parameters to identify
 a Linux distribution that a build agent is running on.
 
-image:{uri-build-status}?branch=master["Build Status", link="{uri-build-history}"]
+image:{uri-build-status}?branch=main["Build Status", link="{uri-build-history}"]
 image:{uri-version}[Download, link={uri-download}]
 image:{uri-downloads}["Downloads", link="{uri-download}"]
 
