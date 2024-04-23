@@ -55,12 +55,14 @@ class LinuxPropertiesLoaderTest {
     @CsvSource({
     //      image               name            version                         description
             "alpine:3.17.2,     Alpine Linux,   3.17.2,                         Alpine Linux v3.17",
+            "alpine:3.19.1,     Alpine Linux,   3.19.1,                         Alpine Linux v3.19",
             "centos:6.10,       CentOS,         6.10,                           CentOS release 6.10 (Final)",
             "centos:7.9.2009,   CentOS Linux,   7.9.2009,                       CentOS Linux 7 (Core)",
             "centos:8.4.2105,   CentOS Linux,   8.4.2105,                       CentOS Linux 8",
-            "opensuse/leap:15.4,openSUSE Leap,  15.4,                           openSUSE Leap 15.4",
+            "opensuse/leap:15.5,openSUSE Leap,  15.5,                           openSUSE Leap 15.5",
             "ubuntu:18.04,      Ubuntu,         18.04.6 LTS (Bionic Beaver),    Ubuntu 18.04.6 LTS",
-            "ubuntu:20.04,      Ubuntu,         20.04.5 LTS (Focal Fossa),      Ubuntu 20.04.5 LTS"
+            "ubuntu:20.04,      Ubuntu,         20.04.6 LTS (Focal Fossa),      Ubuntu 20.04.6 LTS",
+            "ubuntu:22.04,      Ubuntu,         22.04.4 LTS (Jammy Jellyfish),  Ubuntu 22.04.4 LTS"
     })
     void loadPropertiesFor(String image, String name, String version, String description) throws IOException, InterruptedException {
         container = new LinuxContainer(DockerImageName.parse(image))
