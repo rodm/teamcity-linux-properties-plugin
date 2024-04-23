@@ -15,9 +15,11 @@ java {
 }
 
 dependencies {
-    testImplementation ("org.junit.jupiter:junit-jupiter:5.9.2")
-    testImplementation("org.testcontainers:junit-jupiter:1.17.6")
-    testImplementation("org.mockito:mockito-core:4.11.0")
+    testImplementation ("org.junit.jupiter:junit-jupiter:5.10.2")
+    testImplementation ("org.testcontainers:junit-jupiter:1.19.7")
+    testImplementation ("org.mockito:mockito-core:4.11.0")
+
+    testRuntimeOnly ("org.junit.platform:junit-platform-launcher")
 }
 
 teamcity {
