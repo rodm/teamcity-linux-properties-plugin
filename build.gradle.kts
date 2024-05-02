@@ -47,8 +47,8 @@ teamcity {
             javaHome = extra["java8Home"] as String
         }
 
-        register("teamcity2022.10", DockerTeamCityEnvironment::class.java) {
-            version = "2022.10.2"
+        register("teamcity2024.03", DockerTeamCityEnvironment::class.java) {
+            version = "2024.03"
             port = "7111"
         }
     }
