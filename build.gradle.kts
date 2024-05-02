@@ -16,15 +16,13 @@ extra["serversDir"] = project.findProperty("servers.dir") as String? ?: "$rootDi
 extra["java8Home"] = project.findProperty("java8.home") ?: "/opt/jdk1.8.0_152"
 
 dependencies {
-    agent (project(path = ":agent", configuration = "plugin"))
+    agent (project(path = ":linux-properties-agent", configuration = "plugin"))
 }
 
 teamcity {
     version = extra["teamcityVersion"] as String
 
     server {
-        archiveName = "linux-properties-${rootProject.version}.zip"
-
         descriptor {
             name = "linux-properties"
             displayName = "Linux Properties"
