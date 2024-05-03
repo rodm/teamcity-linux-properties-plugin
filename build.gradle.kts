@@ -46,3 +46,10 @@ teamcity {
         }
     }
 }
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "${project.group}:teamcity-linux-properties")
+        property("sonar.projectName", "teamcity-linux-properties")
+    }
+}
