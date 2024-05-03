@@ -60,9 +60,11 @@ class LinuxPropertiesLoaderTest {
             "centos:7.9.2009,   CentOS Linux,   7.9.2009,                       CentOS Linux 7 (Core)",
             "centos:8.4.2105,   CentOS Linux,   8.4.2105,                       CentOS Linux 8",
             "opensuse/leap:15.5,openSUSE Leap,  15.5,                           openSUSE Leap 15.5",
+            "rockylinux:9.3,    Rocky Linux,    9.3 (Blue Onyx),                Rocky Linux 9.3 (Blue Onyx)",
             "ubuntu:18.04,      Ubuntu,         18.04.6 LTS (Bionic Beaver),    Ubuntu 18.04.6 LTS",
             "ubuntu:20.04,      Ubuntu,         20.04.6 LTS (Focal Fossa),      Ubuntu 20.04.6 LTS",
-            "ubuntu:22.04,      Ubuntu,         22.04.4 LTS (Jammy Jellyfish),  Ubuntu 22.04.4 LTS"
+            "ubuntu:22.04,      Ubuntu,         22.04.4 LTS (Jammy Jellyfish),  Ubuntu 22.04.4 LTS",
+            "ubuntu:24.04,      Ubuntu,         24.04 LTS (Noble Numbat),       Ubuntu 24.04 LTS"
     })
     void loadPropertiesFor(String image, String name, String version, String description) throws IOException, InterruptedException {
         container = new LinuxContainer(DockerImageName.parse(image))
