@@ -11,9 +11,6 @@ group = "com.github.rodm"
 version = "1.0-SNAPSHOT"
 
 extra["teamcityVersion"] = project.findProperty("teamcity.api.version") as String? ?: "2018.1"
-extra["downloadsDir"] = project.findProperty("downloads.dir") as String? ?: "$rootDir/downloads"
-extra["serversDir"] = project.findProperty("servers.dir") as String? ?: "$rootDir/servers"
-extra["java8Home"] = project.findProperty("java8.home") ?: "/opt/jdk1.8.0_152"
 
 dependencies {
     agent (project(path = ":linux-properties-agent", configuration = "plugin"))
@@ -36,13 +33,11 @@ teamcity {
     }
 
     environments {
-        downloadsDir = extra["downloadsDir"] as String
-        baseHomeDir = extra["serversDir"] as String
         baseDataDir = "${rootDir}/data"
 
-        register("teamcity2018.1") {
-            version = "2018.1.4"
-            javaHome = extra["java8Home"] as String
+        register("teamcity2018.1", DockerTeamCityEnvironment::class.java) {
+            version = "2018.1.5"
+            port = "7111"
         }
 
         register("teamcity2024.03", DockerTeamCityEnvironment::class.java) {
