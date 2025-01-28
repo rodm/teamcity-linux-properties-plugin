@@ -40,8 +40,8 @@ teamcity {
             port = "7111"
         }
 
-        register("teamcity2024.03", DockerTeamCityEnvironment::class.java) {
-            version = "2024.03"
+        register("teamcity2024.12", DockerTeamCityEnvironment::class.java) {
+            version = "2024.12.1"
             port = "7111"
         }
     }
