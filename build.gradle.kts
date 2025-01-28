@@ -2,9 +2,9 @@
 import com.github.rodm.teamcity.DockerTeamCityEnvironment
 
 plugins {
-    id ("io.github.rodm.teamcity-server")
-    id ("io.github.rodm.teamcity-environments")
-    id ("org.sonarqube")
+    alias (libs.plugins.teamcity.server)
+    alias (libs.plugins.teamcity.environments)
+    alias (libs.plugins.sonarqube)
 }
 
 group = "com.github.rodm"
