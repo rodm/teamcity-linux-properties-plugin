@@ -33,14 +33,13 @@ teamcity {
     }
 
     environments {
-        baseDataDir = "${rootDir}/data"
-
-        register("teamcity2018.1", DockerTeamCityEnvironment::class.java) {
+        val type = DockerTeamCityEnvironment::class.java
+        register("teamcity2018.1", type) {
             version = "2018.1.5"
             port = "7111"
         }
 
-        register("teamcity2024.12", DockerTeamCityEnvironment::class.java) {
+        register("teamcity2024.12", type) {
             version = "2024.12.1"
             port = "7111"
         }
