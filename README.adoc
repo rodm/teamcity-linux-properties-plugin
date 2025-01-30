@@ -1,23 +1,23 @@
+:plugin-id: teamcity-linux-properties-plugin
+:plugin-name: {plugin-id}
 :uri-teamcity: https://www.jetbrains.com/teamcity/[TeamCity]
 :uri-apache-license: http://www.apache.org/licenses/LICENSE-2.0.html[Apache License, Version 2.0]
 :uri-gradle: https://gradle.org/[Gradle]
 :uri-github: https://github.com
+:uri-github-project: {uri-github}/rodm/{plugin-name}
+:uri-github-actions: {uri-github-project}/actions
+:uri-github-status: {uri-github-actions}/workflows/build.yml/badge.svg
+:uri-download: {uri-github-project}/releases/latest
 :uri-shields: https://img.shields.io
-:plugin-id: teamcity-linux-properties-plugin
-:plugin-name: {plugin-id}
-:uri-project: {uri-github}/rodm/{plugin-name}
-:uri-download: {uri-project}/releases/latest
 :uri-version: {uri-shields}/github/v/release/rodm/{plugin-name}?label=TeamCity%20plugin
 :uri-downloads: {uri-shields}/github/downloads/rodm/{plugin-name}/total?label=Downloads
-:uri-build-history: {uri-project}/actions
-:uri-build-status: {uri-project}/workflows/Build/badge.svg
 
 = TeamCity Linux Properties
 
 Linux Properties is a {uri-teamcity} plugin that provides additional configuration parameters to identify
 a Linux distribution that a build agent is running on.
 
-image:{uri-build-status}?branch=main["Build Status", link="{uri-build-history}"]
+image:{uri-github-status}?branch=main["Build Status", link="{uri-github-actions}"]
 image:{uri-version}[Download, link={uri-download}]
 image:{uri-downloads}["Downloads", link="{uri-download}"]
 
