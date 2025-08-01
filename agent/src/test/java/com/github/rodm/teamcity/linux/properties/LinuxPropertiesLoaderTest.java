@@ -64,7 +64,7 @@ class LinuxPropertiesLoaderTest {
             "ubuntu:18.04,      Ubuntu,         18.04.6 LTS (Bionic Beaver),    Ubuntu 18.04.6 LTS",
             "ubuntu:20.04,      Ubuntu,         20.04.6 LTS (Focal Fossa),      Ubuntu 20.04.6 LTS",
             "ubuntu:22.04,      Ubuntu,         22.04.5 LTS (Jammy Jellyfish),  Ubuntu 22.04.5 LTS",
-            "ubuntu:24.04,      Ubuntu,         24.04.1 LTS (Noble Numbat),     Ubuntu 24.04.1 LTS"
+            "ubuntu:24.04,      Ubuntu,         24.04.2 LTS (Noble Numbat),     Ubuntu 24.04.2 LTS"
     })
     void loadPropertiesFor(String image, String name, String version, String description) throws IOException, InterruptedException {
         container = new LinuxContainer(DockerImageName.parse(image))
