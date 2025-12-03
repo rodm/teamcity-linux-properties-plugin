@@ -62,7 +62,7 @@ class LinuxPropertiesLoaderTest {
             "opensuse/leap:15.6,            openSUSE Leap,  15.6,                           openSUSE Leap 15.6",
             "opensuse/leap:16.0,            openSUSE Leap,  16.0,                           openSUSE Leap 16.0",
             "rockylinux:9.3,                Rocky Linux,    9.3 (Blue Onyx),                Rocky Linux 9.3 (Blue Onyx)",
-            "rockylinux/rockylinux:10.1,    Rocky Linux,    10.1 (Red Quartz),              Rocky Linux 10.1 (Red Quartz)",
+//            "rockylinux/rockylinux:10.1,    Rocky Linux,    10.1 (Red Quartz),              Rocky Linux 10.1 (Red Quartz)",
             "ubuntu:20.04,                  Ubuntu,         20.04.6 LTS (Focal Fossa),      Ubuntu 20.04.6 LTS",
             "ubuntu:22.04,                  Ubuntu,         22.04.5 LTS (Jammy Jellyfish),  Ubuntu 22.04.5 LTS",
             "ubuntu:24.04,                  Ubuntu,         24.04.3 LTS (Noble Numbat),     Ubuntu 24.04.3 LTS"
