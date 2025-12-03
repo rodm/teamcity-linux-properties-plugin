@@ -1,16 +1,16 @@
 
 [versions]
-teamcity = "1.5.5"
+teamcity = "1.5.6"
 
 [plugins]
 teamcity-server = { id = "io.github.rodm.teamcity-server", version.ref = "teamcity" }
 teamcity-environments = { id = "io.github.rodm.teamcity-environments", version.ref = "teamcity" }
-sonarqube = { id = "org.sonarqube", version = "6.2.0.5505" }
+sonarqube = { id = "org.sonarqube", version = "7.1.0.6387" }
 
 [libraries]
-junit-bom = { module = "org.junit:junit-bom", version = "5.13.4" }
+junit-bom = { module = "org.junit:junit-bom", version = "5.14.1" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 
-testcontainers = { module = "org.testcontainers:junit-jupiter", version = "1.21.3" }
+testcontainers = { module = "org.testcontainers:testcontainers-junit-jupiter", version = "2.0.2" }
 mockito = { module = "org.mockito:mockito-core", version = "4.11.0" }
