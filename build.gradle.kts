@@ -40,8 +40,8 @@ teamcity {
             port = "7111"
         }
 
-        register("teamcity2025.07", type) {
-            version = "2025.07"
+        register("teamcity2025.11", type) {
+            version = "2025.11"
             port = "7111"
         }
     }
