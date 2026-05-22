@@ -10,15 +10,11 @@ plugins {
 group = "com.github.rodm"
 version = "1.0-SNAPSHOT"
 
-extra["teamcityVersion"] = project.findProperty("teamcity.api.version") as String? ?: "2018.1"
-
 dependencies {
     agent (project(path = ":linux-properties-agent", configuration = "plugin"))
 }
 
 teamcity {
-    version = extra["teamcityVersion"] as String
-
     server {
         descriptor {
             name = "linux-properties"

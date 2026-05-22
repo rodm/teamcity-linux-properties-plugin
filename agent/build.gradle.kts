@@ -20,7 +20,11 @@ dependencies {
     testRuntimeOnly (libs.junit.launcher)
 }
 
+val teamcityVersion = project.findProperty("teamcity.api.version") as String? ?: "2018.1"
+
 teamcity {
+    version = teamcityVersion
+
     agent {
         descriptor {
             pluginDeployment {
