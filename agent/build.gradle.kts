@@ -35,6 +35,7 @@ tasks {
         useJUnitPlatform()
         finalizedBy (jacocoTestReport)
         environment("TESTCONTAINERS_RYUK_DISABLED", "true")
+        jvmArgs ("-XX:+EnableDynamicAgentLoading")
     }
 
     jacocoTestReport {
