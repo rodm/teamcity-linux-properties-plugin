@@ -20,10 +20,13 @@ import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.images.ImagePullPolicy;
+import org.testcontainers.images.PullPolicy;
 import org.testcontainers.utility.DockerImageName;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.Properties;
 
 import static com.github.rodm.teamcity.linux.properties.LinuxProperties.OS_DESCRIPTION;
@@ -69,6 +72,7 @@ class LinuxPropertiesLoaderTest {
     })
     void loadPropertiesFor(String image, String name, String version, String description) throws IOException, InterruptedException {
         container = new LinuxContainer(DockerImageName.parse(image))
+                .withImagePullPolicy(PullPolicy.ageBased(Duration.ofDays(90)))
                 .withCommand("sleep 10")
                 .withFileSystemBind(dir.toString(), "/mnt", READ_WRITE);
         container.start();
