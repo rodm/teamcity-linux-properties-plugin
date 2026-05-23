@@ -25,14 +25,14 @@ teamcity {
             vendorUrl = "https://github.com/rodm"
             email = "rod.n.mackenzie@gmail.com"
             useSeparateClassloader = true
-            minimumBuild = "58245"
+            minimumBuild = "186049"
         }
     }
 
     environments {
         val type = DockerTeamCityEnvironment::class.java
-        register("teamcity2018.1", type) {
-            version = "2018.1.5"
+        register("teamcity2025.03", type) {
+            version = "2025.03"
             port = "7111"
         }
 

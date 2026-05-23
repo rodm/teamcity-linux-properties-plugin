@@ -20,7 +20,7 @@ dependencies {
     testRuntimeOnly (libs.junit.launcher)
 }
 
-val teamcityVersion = project.findProperty("teamcity.api.version") as String? ?: "2018.1"
+val teamcityVersion = project.findProperty("teamcity.api.version") as String? ?: "2025.03"
 
 teamcity {
     version = teamcityVersion
